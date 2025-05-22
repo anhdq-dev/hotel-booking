@@ -15,6 +15,19 @@ const CheckBox = ({ label, selected = false, onChange = () => {} }) => {
     </label>
   );
 };
+const RadioButton = ({ label, selected = false, onChange = () => {} }) => {
+  return (
+    <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm">
+      <input
+        type="radio"
+        name="sortOption"
+        checked={selected}
+        onChange={() => onChange(label)}
+      />
+      <span className="font-light select-auto">{label}</span>
+    </label>
+  );
+};
 
 const AllRooms = () => {
   const navigate = useNavigate();
@@ -33,7 +46,7 @@ const AllRooms = () => {
     "Newest First",
   ];
   return (
-    <div className="flex flex-col-reverse items-start justify-between pt-28 md:px-16 md:pt-35 lg:flex-row lg:px-24 xl:px-32">
+    <div className="flex flex-col-reverse items-start justify-between pt-28 px-8 md:px-16 md:pt-35 lg:flex-row lg:px-24 xl:px-32">
       <div className="">
         <div className="flex flex-col items-start text-left">
           <h1 className="font-playfair text-4xl md:text-5xl">All Rooms</h1>
@@ -118,6 +131,21 @@ const AllRooms = () => {
         >
           <div className="px-5 pt-5">
             <p className="pb-2 font-medium text-gray-800">Popular filters</p>
+            {roomTypes.map((room, index) => (
+              <CheckBox key={index} label={room} />
+            ))}
+          </div>
+          <div className="px-5 pt-5">
+            <p className="pb-2 font-medium text-gray-800">Price Range</p>
+            {priceRanges.map((range, index) => (
+              <CheckBox key={index} label={`$ ${range}`} />
+            ))}
+          </div>
+          <div className="px-5 pt-5 pb-7">
+            <p className="pb-2 font-medium text-gray-800">Sort By</p>
+            {sortOptions.map((option, index) => (
+              <RadioButton key={index} label={option} />
+            ))}
           </div>
         </div>
       </div>
